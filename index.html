@@ -151,7 +151,7 @@ if (SpeechRecognition) {
 
   mic.addEventListener("click", () => {
     if (listening) {
-      recognition.abort();
+      recognition.stop();
       updateMicButton(false);
       status.textContent = "Écoute arrêtée.";
       return;
