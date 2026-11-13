@@ -8,85 +8,176 @@
 <title>MINI07.VOID</title>
 
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;background:#080510;color:white;
- font-family:Arial,sans-serif;min-height:100vh;
-}
-header{
- padding:22px 18px;border-bottom:1px solid #462078;
- display:flex;align-items:center;gap:12px;
-}
-.logo{
- width:45px;height:45px;border-radius:15px;
- background:linear-gradient(135deg,#a000ff,#31006c);
- display:grid;place-items:center;font-size:25px;font-weight:bold;
- box-shadow:0 0 18px #a000ff88;
-}
-h1{font-size:19px;margin:0}
-.status{font-size:11px;color:#bc8aff;margin-top:5px}
-main{max-width:600px;margin:auto;padding:22px 16px}
-.hero{text-align:center;padding:30px 0}
-.avatar{
- width:160px;
- height:160px;
- margin:auto;
- border-radius:50%;
- border:2px solid #a000ff;
- background:#10051e;
- overflow:hidden;
- box-shadow:0 0 35px #9c00ff88;
+* {
+ box-sizing: border-box;
 }
 
-.avatar img{
- width:100%;
- height:100%;
- display:block;
- object-fit:cover;
+body {
+ margin: 0;
+ background: #080510;
+ color: white;
+ font-family: Arial, sans-serif;
+ min-height: 100vh;
 }
 
-.hero h2{color:#c18aff;font-size:26px}
-.hero p{color:#aaa;font-size:13px}
-.chat{
- background:#130c20;border:1px solid #462078;
- border-radius:18px;padding:15px;min-height:190px;
+header {
+ padding: 22px 18px;
+ border-bottom: 1px solid #462078;
+ display: flex;
+ align-items: center;
+ gap: 12px;
 }
-.message{
- padding:12px 14px;margin:10px 0;border-radius:14px;
- font-size:14px;line-height:1.5;max-width:90%;
+
+.logo {
+ width: 45px;
+ height: 45px;
+ border-radius: 15px;
+ background: linear-gradient(135deg,#a000ff,#31006c);
+ display: grid;
+ place-items: center;
+ font-size: 25px;
+ font-weight: bold;
+ box-shadow: 0 0 18px #a000ff88;
 }
-.bot{background:#29133e;border:1px solid #6526a0}
-.user{background:#6414a1;margin-left:auto}
-form{display:flex;gap:8px;margin-top:14px}
-input{
- flex:1;min-width:0;padding:14px;background:#160d24;
- border:1px solid #7432a8;border-radius:13px;
- color:white;font-size:14px;
+
+h1 {
+ font-size: 19px;
+ margin: 0;
 }
-button{
- border:0;border-radius:13px;padding:0 17px;
- color:white;background:#8614d6;font-size:18px;
+
+.status {
+ font-size: 11px;
+ color: #bc8aff;
+ margin-top: 5px;
 }
-#voiceStatus{color:#bc8aff;font-size:12px}
-footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
+
+main {
+ max-width: 600px;
+ margin: auto;
+ padding: 22px 16px;
+}
+
+.hero {
+ text-align: center;
+ padding: 30px 0;
+}
+
+.avatar {
+ width: 160px;
+ height: 160px;
+ margin: auto;
+ border-radius: 50%;
+ border: 2px solid #a000ff;
+ background: #10051e;
+ overflow: hidden;
+ box-shadow: 0 0 35px #9c00ff88;
+}
+
+.avatar img {
+ width: 100%;
+ height: 100%;
+ display: block;
+ object-fit: cover;
+}
+
+.hero h2 {
+ color: #c18aff;
+ font-size: 26px;
+}
+
+.hero p {
+ color: #aaa;
+ font-size: 13px;
+}
+
+.chat {
+ background: #130c20;
+ border: 1px solid #462078;
+ border-radius: 18px;
+ padding: 15px;
+ min-height: 190px;
+}
+
+.message {
+ padding: 12px 14px;
+ margin: 10px 0;
+ border-radius: 14px;
+ font-size: 14px;
+ line-height: 1.5;
+ max-width: 90%;
+}
+
+.bot {
+ background: #29133e;
+ border: 1px solid #6526a0;
+}
+
+.user {
+ background: #6414a1;
+ margin-left: auto;
+}
+
+form {
+ display: flex;
+ gap: 8px;
+ margin-top: 14px;
+}
+
+input {
+ flex: 1;
+ min-width: 0;
+ padding: 14px;
+ background: #160d24;
+ border: 1px solid #7432a8;
+ border-radius: 13px;
+ color: white;
+ font-size: 14px;
+}
+
+button {
+ border: 0;
+ border-radius: 13px;
+ padding: 0 17px;
+ color: white;
+ background: #8614d6;
+ font-size: 18px;
+}
+
+#voiceStatus {
+ color: #bc8aff;
+ font-size: 12px;
+}
+
+footer {
+ text-align: center;
+ color: #78678c;
+ font-size: 11px;
+ margin: 22px;
+}
 </style>
 </head>
 
 <body>
+
 <header>
  <div class="logo">M</div>
  <div>
   <h1>MINI07.VOID</h1>
-  <div class="avatar">
-   <img src="Void.png" alt="Personnage MINI07.VOID">
-  </div>
+  <div class="status">● EN LIGNE</div>
  </div>
 </header>
 
 <main>
+
  <section class="hero">
+
+  <div class="avatar">
+   <img src="Void.png" alt="Personnage MINI07.VOID">
+  </div>
+
   <h2>BEYOND REALITY</h2>
   <p>Une intelligence à tes côtés.</p>
+
  </section>
 
  <section class="chat" id="chat">
@@ -102,14 +193,12 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
   <button type="button" id="mic">🎙️</button>
   <button type="submit">➤</button>
  </form>
+
  <p id="voiceStatus"></p>
+
 </main>
 
 <footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
-</body>
-
-
- 
 
 <script>
 const form = document.getElementById("form");
@@ -119,95 +208,90 @@ const mic = document.getElementById("mic");
 const status = document.getElementById("voiceStatus");
 
 function addMessage(text, type) {
-  const div = document.createElement("div");
-  div.className = "message " + type;
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+ const div = document.createElement("div");
+ div.className = "message " + type;
+ div.textContent = text;
+ chat.appendChild(div);
+ chat.scrollTop = chat.scrollHeight;
 }
 
 form.addEventListener("submit", function(e) {
-  e.preventDefault();
+ e.preventDefault();
 
-  const question = input.value.trim();
-  if (!question) return;
+ const question = input.value.trim();
+ if (!question) return;
 
-  addMessage(question, "user");
-  input.value = "";
+ addMessage(question, "user");
+ input.value = "";
 
-  setTimeout(() => {
-    const answer =
-      "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
-    addMessage(answer, "bot");
-  }, 500);
+ setTimeout(() => {
+  const answer =
+   "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+  addMessage(answer, "bot");
+ }, 500);
 });
 
 const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+ window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (SpeechRecognition) {
-  const recognition = new SpeechRecognition();
+ const recognition = new SpeechRecognition();
 
-  recognition.lang = "fr-FR";
-  recognition.continuous = false;
-  recognition.interimResults = false;
+ recognition.lang = "fr-FR";
+ recognition.continuous = false;
+ recognition.interimResults = false;
 
-  let listening = false;
+ let listening = false;
 
-  function updateMicButton(active) {
-    listening = active;
-    mic.textContent = active ? "⏹️" : "🎙️";
-    mic.title = active ? "Arrêter l'écoute" : "Parler";
-    mic.setAttribute("aria-label", mic.title);
+ function updateMicButton(active) {
+  listening = active;
+  mic.textContent = active ? "⏹️" : "🎙️";
+  mic.title = active ? "Arrêter l'écoute" : "Parler";
+  mic.setAttribute("aria-label", mic.title);
+ }
+
+ mic.addEventListener("click", () => {
+  if (listening) {
+   recognition.stop();
+   updateMicButton(false);
+   status.textContent = "Écoute arrêtée.";
+   return;
   }
 
-  mic.addEventListener("click", () => {
-    if (listening) {
-      recognition.stop();
-      updateMicButton(false);
-      status.textContent = "Écoute arrêtée.";
-      return;
-    }
+  try {
+   updateMicButton(true);
+   status.textContent = "VOID écoute...";
+   recognition.start();
+  } catch (e) {
+   updateMicButton(false);
+   status.textContent = "Réessaie dans un instant.";
+  }
+ });
 
-    try {
-      updateMicButton(true);
-      status.textContent = "VOID écoute...";
-      recognition.start();
-    } catch (e) {
-      updateMicButton(false);
-      status.textContent = "Réessaie dans un instant.";
-    }
-  });
+ recognition.onresult = (event) => {
+  input.value = event.results[0][0].transcript;
+  status.textContent = "Paroles transcrites !";
+ };
 
-  recognition.onresult = (event) => {
-    input.value = event.results[0][0].transcript;
-    status.textContent = "Paroles transcrites !";
-  };
-
-  recognition.onerror = (event) => {
+ recognition.onerror = (event) => {
   updateMicButton(false);
   status.textContent = "Erreur micro : " + event.error;
   console.log("Erreur VOID :", event.error);
-};
+ };
 
-  recognition.onend = () => {
-    updateMicButton(false);
+ recognition.onend = () => {
+  updateMicButton(false);
 
-    if (status.textContent === "VOID écoute...") {
-      status.textContent = "Écoute arrêtée.";
-    }
-  };
+  if (status.textContent === "VOID écoute...") {
+   status.textContent = "Écoute arrêtée.";
+  }
+ };
 
 } else {
-  mic.disabled = true;
-  status.textContent = "Reconnaissance vocale non prise en charge.";
+ mic.disabled = true;
+ status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
-
-
-
-
-
 
 </body>
 </html>
