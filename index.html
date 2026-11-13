@@ -172,10 +172,11 @@ if (SpeechRecognition) {
     status.textContent = "Paroles transcrites !";
   };
 
-  recognition.onerror = () => {
-    updateMicButton(false);
-    status.textContent = "Micro indisponible. Vérifie son autorisation.";
-  };
+  recognition.onerror = (event) => {
+  updateMicButton(false);
+  status.textContent = "Erreur micro : " + event.error;
+  console.log("Erreur VOID :", event.error);
+};
 
   recognition.onend = () => {
     updateMicButton(false);
