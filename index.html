@@ -28,12 +28,23 @@ h1{font-size:19px;margin:0}
 main{max-width:600px;margin:auto;padding:22px 16px}
 .hero{text-align:center;padding:30px 0}
 .avatar{
- width:125px;height:125px;margin:auto;border-radius:50%;
+ width:160px;
+ height:160px;
+ margin:auto;
+ border-radius:50%;
  border:2px solid #a000ff;
- background:radial-gradient(circle,#5100a0,#10051e 65%,#000);
- display:grid;place-items:center;font-size:57px;
+ background:#10051e;
+ overflow:hidden;
  box-shadow:0 0 35px #9c00ff88;
 }
+
+.avatar img{
+ width:100%;
+ height:100%;
+ display:block;
+ object-fit:cover;
+}
+
 .hero h2{color:#c18aff;font-size:26px}
 .hero p{color:#aaa;font-size:13px}
 .chat{
@@ -66,7 +77,10 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
  <div class="logo">M</div>
  <div>
   <h1>MINI07.VOID</h1>
-  <div class="status">● SYSTÈME INITIALISÉ</div>
+  <div class="avatar">
+  <img src="file_000000001e5881f4b0f0dea71c2a3327.png"
+       alt="Personnage MINI07.VOID">
+  </div>
  </div>
 </header>
 
