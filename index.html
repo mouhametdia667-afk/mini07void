@@ -294,6 +294,14 @@ if (SpeechRecognition) {
  status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("VOID est prêt !"))
+      .catch(error => console.log("Erreur VOID :", error));
+  });
+}
+</script>
 </body>
 </html>
