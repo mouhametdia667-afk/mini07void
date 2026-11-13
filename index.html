@@ -96,6 +96,7 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
 <footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
 
 
+
 <script>
 const form = document.getElementById("form");
 const input = document.getElementById("message");
@@ -111,32 +112,6 @@ function addMessage(text, type) {
   chat.scrollTop = chat.scrollHeight;
 }
 
-function getAnswer(question) {
-  return "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
-}
-
-function speak(text) {
-  if (!("speechSynthesis" in window)) {
-    status.textContent = "Voix indisponible sur ce navigateur.";
-    return;
-  }
-
-  speechSynthesis.cancel();
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "fr-FR";
-  utterance.rate = 0.92;
-  utterance.pitch = 0.85;
-
-  const french = speechSynthesis.getVoices()
-    .find(v => v.lang.startsWith("fr"));
-
-  if (french) utterance.voice = french;
-
-  speechSynthesis.speak(utterance);
-}
-
-// MODE TEXTE : réponse écrite uniquement
 form.addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -146,17 +121,18 @@ form.addEventListener("submit", function(e) {
   addMessage(question, "user");
   input.value = "";
 
-  const answer = getAnswer(question);
-  addMessage(answer, "bot");
+  setTimeout(() => {
+    const answer =
+      "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+    addMessage(answer, "bot");
+  }, 500);
 });
 
-// MODE VOCAL : réponse parlée uniquement
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (SpeechRecognition) {
   const recognition = new SpeechRecognition();
-
   recognition.lang = "fr-FR";
   recognition.continuous = false;
   recognition.interimResults = false;
@@ -171,14 +147,8 @@ if (SpeechRecognition) {
   });
 
   recognition.onresult = (event) => {
-    const question = event.results[0][0].transcript;
-
-    status.textContent = "VOID prépare sa réponse...";
-
-    const answer = getAnswer(question);
-
-    speak(answer);
-    status.textContent = "VOID te répond à voix haute.";
+    input.value = event.results[0][0].transcript;
+    status.textContent = "Paroles transcrites !";
   };
 
   recognition.onerror = () => {
@@ -196,6 +166,7 @@ if (SpeechRecognition) {
   status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
+
 
 </body>
 </html>
