@@ -95,6 +95,7 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
 
 <footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
 
+
 <script>
 const form = document.getElementById("form");
 const input = document.getElementById("message");
@@ -102,81 +103,99 @@ const chat = document.getElementById("chat");
 const mic = document.getElementById("mic");
 const status = document.getElementById("voiceStatus");
 
-function speak(text) {
- if (!("speechSynthesis" in window)) {
-  status.textContent = "Voix non disponible sur ce navigateur.";
-  return;
- }
- speechSynthesis.cancel();
- const utterance = new SpeechSynthesisUtterance(text);
- utterance.lang = "fr-FR";
- utterance.rate = 0.92;
- utterance.pitch = 0.85;
- const voices = speechSynthesis.getVoices();
- const french = voices.find(v => v.lang.startsWith("fr"));
- if (french) utterance.voice = french;
- speechSynthesis.speak(utterance);
-}
-
 function addMessage(text, type) {
- const div = document.createElement("div");
- div.className = "message " + type;
- div.textContent = text;
- chat.appendChild(div);
- chat.scrollTop = chat.scrollHeight;
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
 }
 
-form.addEventListener("submit", function(e) {
- e.preventDefault();
- const value = input.value.trim();
- if (!value) return;
- addMessage(value, "user");
- input.value = "";
+function getAnswer(question) {
+  return "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+}
 
- setTimeout(() => {
-  const answer = "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+function speak(text) {
+  if (!("speechSynthesis" in window)) {
+    status.textContent = "Voix indisponible sur ce navigateur.";
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "fr-FR";
+  utterance.rate = 0.92;
+  utterance.pitch = 0.85;
+
+  const french = speechSynthesis.getVoices()
+    .find(v => v.lang.startsWith("fr"));
+
+  if (french) utterance.voice = french;
+
+  speechSynthesis.speak(utterance);
+}
+
+// MODE TEXTE : réponse écrite uniquement
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const question = input.value.trim();
+  if (!question) return;
+
+  addMessage(question, "user");
+  input.value = "";
+
+  const answer = getAnswer(question);
   addMessage(answer, "bot");
-  speak(answer);
- }, 500);
 });
 
+// MODE VOCAL : réponse parlée uniquement
 const SpeechRecognition =
- window.SpeechRecognition || window.webkitSpeechRecognition;
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (SpeechRecognition) {
- const recognition = new SpeechRecognition();
- recognition.lang = "fr-FR";
- recognition.continuous = false;
- recognition.interimResults = false;
+  const recognition = new SpeechRecognition();
 
- mic.addEventListener("click", () => {
-  try {
-   status.textContent = "VOID écoute...";
-   recognition.start();
-  } catch(e) {
-   status.textContent = "Réessaie dans un instant.";
-  }
- });
+  recognition.lang = "fr-FR";
+  recognition.continuous = false;
+  recognition.interimResults = false;
 
- recognition.onresult = (event) => {
-  input.value = event.results[0][0].transcript;
-  status.textContent = "Message vocal reconnu.";
-  form.requestSubmit();
- };
+  mic.addEventListener("click", () => {
+    try {
+      status.textContent = "VOID écoute...";
+      recognition.start();
+    } catch(e) {
+      status.textContent = "Réessaie dans un instant.";
+    }
+  });
 
- recognition.onerror = () => {
-  status.textContent = "Micro indisponible. Vérifie son autorisation.";
- };
+  recognition.onresult = (event) => {
+    const question = event.results[0][0].transcript;
 
- recognition.onend = () => {
-  if (status.textContent === "VOID écoute...") {
-   status.textContent = "";
-  }
- };
+    status.textContent = "VOID prépare sa réponse...";
+
+    const answer = getAnswer(question);
+
+    speak(answer);
+    status.textContent = "VOID te répond à voix haute.";
+  };
+
+  recognition.onerror = () => {
+    status.textContent = "Micro indisponible. Vérifie son autorisation.";
+  };
+
+  recognition.onend = () => {
+    if (status.textContent === "VOID écoute...") {
+      status.textContent = "";
+    }
+  };
+
 } else {
- mic.disabled = true;
- status.textContent = "Reconnaissance vocale non prise en charge.";
+  mic.disabled = true;
+  status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
+
 </body>
 </html>
