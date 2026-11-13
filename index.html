@@ -98,6 +98,7 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
 <footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
 
  
+
 <script>
 const form = document.getElementById("form");
 const input = document.getElementById("message");
@@ -141,23 +142,27 @@ if (SpeechRecognition) {
 
   let listening = false;
 
+  function updateMicButton(active) {
+    listening = active;
+    mic.textContent = active ? "⏹️" : "🎙️";
+    mic.title = active ? "Arrêter l'écoute" : "Parler";
+    mic.setAttribute("aria-label", mic.title);
+  }
+
   mic.addEventListener("click", () => {
     if (listening) {
-      listening = false;
       recognition.abort();
-      mic.textContent = "🎙️";
-      mic.title = "Parler";
+      updateMicButton(false);
       status.textContent = "Écoute arrêtée.";
       return;
     }
 
     try {
-      recognition.start();
-      listening = true;
-      mic.textContent = "⏹️";
-      mic.title = "Arrêter l'écoute";
+      updateMicButton(true);
       status.textContent = "VOID écoute...";
+      recognition.start();
     } catch (e) {
+      updateMicButton(false);
       status.textContent = "Réessaie dans un instant.";
     }
   });
@@ -168,13 +173,12 @@ if (SpeechRecognition) {
   };
 
   recognition.onerror = () => {
+    updateMicButton(false);
     status.textContent = "Micro indisponible. Vérifie son autorisation.";
   };
 
   recognition.onend = () => {
-    listening = false;
-    mic.textContent = "🎙️";
-    mic.title = "Parler";
+    updateMicButton(false);
 
     if (status.textContent === "VOID écoute...") {
       status.textContent = "Écoute arrêtée.";
@@ -186,6 +190,7 @@ if (SpeechRecognition) {
   status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
+
 
 
 
