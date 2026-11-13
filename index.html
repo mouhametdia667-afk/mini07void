@@ -93,30 +93,103 @@ footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
 </main>
 <footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
 <script>
-const form=document.getElementById("form");
-const input=document.getElementById("message");
-const chat=document.getElementById("chat");
+ 
+<form id="form">
+  <input id="message" placeholder="Écris ou parle à VOID..." autocomplete="off">
+  <button type="button" id="mic">🎙️</button>
+  <button type="submit">➤</button>
+</form>
+<p id="voiceStatus" style="color:#bc8aff;font-size:12px"></p>
 
-form.addEventListener("submit",function(e){
- e.preventDefault();
- const value=input.value.trim();
- if(!value)return;
+<script>
+const form = document.getElementById("form");
+const input = document.getElementById("message");
+const chat = document.getElementById("chat");
+const mic = document.getElementById("mic");
+const status = document.getElementById("voiceStatus");
 
- addMessage(value,"user");
- input.value="";
+function speak(text) {
+  if (!("speechSynthesis" in window)) {
+    status.textContent = "Voix non disponible sur ce navigateur.";
+    return;
+  }
 
- setTimeout(()=>{
-  addMessage("Je suis en cours d'éveil. Mon cerveau IA sera connecté dans la prochaine étape. 🌌","bot");
- },500);
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "fr-FR";
+  utterance.rate = 0.92;
+  utterance.pitch = 0.85;
+
+  const voices = speechSynthesis.getVoices();
+  const french = voices.find(v => v.lang.startsWith("fr"));
+  if (french) utterance.voice = french;
+
+  speechSynthesis.speak(utterance);
+}
+
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const value = input.value.trim();
+  if (!value) return;
+
+  addMessage(value, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    const answer =
+      "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+    addMessage(answer, "bot");
+    speak(answer);
+  }, 500);
 });
 
-function addMessage(text,type){
- const div=document.createElement("div");
- div.className="message "+type;
- div.textContent=text;
- chat.appendChild(div);
- chat.scrollTop=chat.scrollHeight;
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "fr-FR";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  mic.addEventListener("click", () => {
+    try {
+      status.textContent = "VOID écoute...";
+      recognition.start();
+    } catch(e) {
+      status.textContent = "Réessaie dans un instant.";
+    }
+  });
+
+  recognition.onresult = (event) => {
+    input.value = event.results[0][0].transcript;
+    status.textContent = "Message vocal reconnu.";
+    form.requestSubmit();
+  };
+
+  recognition.onerror = () => {
+    status.textContent = "Micro indisponible. Vérifie son autorisation.";
+  };
+
+  recognition.onend = () => {
+    if (status.textContent === "VOID écoute...") {
+      status.textContent = "";
+    }
+  };
+} else {
+  mic.disabled = true;
+  status.textContent = "Reconnaissance vocale non prise en charge.";
 }
+</script>
+
 </script>
 </body>
 </html>
