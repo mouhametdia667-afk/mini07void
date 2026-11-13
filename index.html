@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080510">
+<title>MINI07.VOID</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080510;color:white;
+ font-family:Arial,sans-serif;
+ min-height:100vh;
+}
+header{
+ padding:22px 18px;
+ border-bottom:1px solid #462078;
+ display:flex;align-items:center;gap:12px;
+}
+.logo{
+ width:45px;height:45px;border-radius:15px;
+ background:linear-gradient(135deg,#a000ff,#31006c);
+ display:grid;place-items:center;
+ font-size:25px;font-weight:bold;
+ box-shadow:0 0 18px #a000ff88;
+}
+h1{font-size:19px;margin:0}
+.status{font-size:11px;color:#bc8aff;margin-top:5px}
+main{max-width:600px;margin:auto;padding:22px 16px}
+.hero{text-align:center;padding:30px 0}
+.avatar{
+ width:125px;height:125px;margin:auto;
+ border-radius:50%;
+ border:2px solid #a000ff;
+ background:radial-gradient(circle,#5100a0,#10051e 65%,#000);
+ display:grid;place-items:center;
+ font-size:57px;
+ box-shadow:0 0 35px #9c00ff88;
+}
+.hero h2{color:#c18aff;font-size:26px}
+.hero p{color:#aaa;font-size:13px}
+.chat{
+ background:#130c20;border:1px solid #462078;
+ border-radius:18px;padding:15px;
+ min-height:190px;
+}
+.message{
+ padding:12px 14px;margin:10px 0;
+ border-radius:14px;font-size:14px;
+ line-height:1.5;max-width:90%;
+}
+.bot{background:#29133e;border:1px solid #6526a0}
+.user{background:#6414a1;margin-left:auto}
+form{display:flex;gap:8px;margin-top:14px}
+input{
+ flex:1;min-width:0;padding:14px;
+ background:#160d24;border:1px solid #7432a8;
+ border-radius:13px;color:white;font-size:14px;
+}
+button{
+ border:0;border-radius:13px;padding:0 17px;
+ color:white;background:#8614d6;font-size:18px;
+}
+footer{text-align:center;color:#78678c;font-size:11px;margin:22px}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">M</div>
+ <div>
+  <h1>MINI07.VOID</h1>
+  <div class="status">● SYSTÈME INITIALISÉ</div>
+ </div>
+</header>
+<main>
+ <section class="hero">
+  <div class="avatar">◉</div>
+  <h2>BEYOND REALITY</h2>
+  <p>Une intelligence à tes côtés.</p>
+ </section>
+ <section class="chat" id="chat">
+  <div class="message bot">
+   Salut ! Je suis MINI07.VOID.<br>
+   Mon univers vient de s'éveiller. 🌌<br>
+   Que veux-tu savoir ?
+  </div>
+ </section>
+ <form id="form">
+  <input id="message" placeholder="Écris ton message..." autocomplete="off">
+  <button type="submit">➤</button>
+ </form>
+</main>
+<footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
+<script>
+const form=document.getElementById("form");
+const input=document.getElementById("message");
+const chat=document.getElementById("chat");
+
+form.addEventListener("submit",function(e){
+ e.preventDefault();
+ const value=input.value.trim();
+ if(!value)return;
+
+ addMessage(value,"user");
+ input.value="";
+
+ setTimeout(()=>{
+  addMessage("Je suis en cours d'éveil. Mon cerveau IA sera connecté dans la prochaine étape. 🌌","bot");
+ },500);
+});
+
+function addMessage(text,type){
+ const div=document.createElement("div");
+ div.className="message "+type;
+ div.textContent=text;
+ chat.appendChild(div);
+ chat.scrollTop=chat.scrollHeight;
+}
+</script>
+</body>
+</html>
