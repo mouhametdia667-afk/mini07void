@@ -5,8 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080510">
- <link rel="manifest" href="./manifest.json">
-<title>MINI07.VOID</title>
+<link rel="manifest" href="./manifest.json">
+<title>VOID</title>
 
 <style>
 * {
@@ -161,9 +161,9 @@ footer {
 <body>
 
 <header>
- <div class="logo">M</div>
+ <div class="logo">V</div>
  <div>
-  <h1>MINI07.VOID</h1>
+  <h1>VOID</h1>
   <div class="status">● EN LIGNE</div>
  </div>
 </header>
@@ -174,7 +174,7 @@ footer {
 
   <div class="avatar">
    <img src="file_000000001e5881f4b0f0dea71c2a3327.png"
-     alt="Personnage MINI07.VOID">
+     alt="Personnage VOID">
   </div>
 
   <h2>BEYOND REALITY</h2>
@@ -184,7 +184,7 @@ footer {
 
  <section class="chat" id="chat">
   <div class="message bot">
-   Salut ! Je suis MINI07.VOID.<br>
+   Salut ! Je suis VOID.<br>
    Mon univers vient de s'éveiller. 🌌<br>
    Que veux-tu savoir ?
   </div>
@@ -200,7 +200,7 @@ footer {
 
 </main>
 
-<footer>MINI07.VOID © 2026 — PERSONAL AI</footer>
+<footer>VOID © 2026 — PERSONAL AI</footer>
 
 <script>
 const form = document.getElementById("form");
@@ -228,7 +228,7 @@ form.addEventListener("submit", function(e) {
 
  setTimeout(() => {
   const answer =
-   "Je suis MINI07.VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
+   "Je suis VOID. Mon intelligence est en cours de connexion. Que souhaites-tu découvrir aujourd'hui ?";
   addMessage(answer, "bot");
  }, 500);
 });
@@ -294,14 +294,16 @@ if (SpeechRecognition) {
  status.textContent = "Reconnaissance vocale non prise en charge.";
 }
 </script>
+
 <script>
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("VOID est prêt !"))
-      .catch(error => console.log("Erreur VOID :", error));
-  });
+ window.addEventListener("load", () => {
+  navigator.serviceWorker.register("./service-worker.js")
+   .then(() => console.log("VOID est prêt !"))
+   .catch(error => console.log("Erreur VOID :", error));
+ });
 }
 </script>
+
 </body>
 </html>
