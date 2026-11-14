@@ -1,4 +1,4 @@
-const CACHE_NAME = "mini07-void-v1";
+const CACHE_NAME = "void-v2";
 
 const FILES_TO_CACHE = [
   "./",
