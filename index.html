@@ -21,6 +21,138 @@ body {
  min-height: 100vh;
 }
 
+/* ANIMATION D'OUVERTURE */
+
+#intro {
+ position: fixed;
+ inset: 0;
+ z-index: 1000;
+ background: radial-gradient(circle, #1b0930, #080510 70%);
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ transition: opacity 1s ease, visibility 1s ease;
+}
+
+#intro.hide {
+ opacity: 0;
+ visibility: hidden;
+}
+
+.particles {
+ position: absolute;
+ inset: 0;
+ pointer-events: none;
+ background-image:
+ radial-gradient(2px 2px at 20% 30%, #c78aff, transparent),
+ radial-gradient(2px 2px at 70% 20%, #a000ff, transparent),
+ radial-gradient(2px 2px at 40% 80%, #ffffff, transparent),
+ radial-gradient(2px 2px at 85% 70%, #bc8aff, transparent),
+ radial-gradient(2px 2px at 15% 75%, #a000ff, transparent);
+ background-size: 180px 180px;
+ animation: stars 5s linear infinite;
+}
+
+@keyframes stars {
+ from { transform: translateY(0); }
+ to { transform: translateY(-80px); }
+}
+
+.intro-logo {
+ width: 110px;
+ height: 110px;
+ border-radius: 30px;
+ display: grid;
+ place-items: center;
+ font-size: 75px;
+ font-weight: bold;
+ color: white;
+ background: linear-gradient(135deg, #a000ff, #31006c);
+ box-shadow: 0 0 25px #a000ff, 0 0 80px #8b00ff88;
+ animation: logoAppear 1.2s ease both;
+}
+
+@keyframes logoAppear {
+ from {
+  opacity: 0;
+  transform: scale(0.3) rotate(-25deg);
+ }
+ to {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+ }
+}
+
+.intro-avatar {
+ width: 145px;
+ height: 145px;
+ margin-top: 28px;
+ border-radius: 50%;
+ border: 2px solid #a000ff;
+ overflow: hidden;
+ box-shadow: 0 0 35px #a000ff;
+ opacity: 0;
+ animation: avatarAppear 1s ease 1.3s forwards;
+}
+
+.intro-avatar img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
+
+@keyframes avatarAppear {
+ from {
+  opacity: 0;
+  transform: scale(0.5);
+ }
+ to {
+  opacity: 1;
+  transform: scale(1);
+ }
+}
+
+.intro-title {
+ margin-top: 22px;
+ font-size: 27px;
+ letter-spacing: 7px;
+ color: #d7aaff;
+ opacity: 0;
+ animation: textAppear 1s ease 2s forwards;
+}
+
+.intro-subtitle {
+ margin-top: 9px;
+ font-size: 11px;
+ letter-spacing: 4px;
+ color: #a98bc2;
+ opacity: 0;
+ animation: textAppear 1s ease 2.4s forwards;
+}
+
+@keyframes textAppear {
+ from { opacity: 0; transform: translateY(15px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+
+#skipIntro {
+ position: absolute;
+ bottom: 35px;
+ right: 25px;
+ padding: 11px 18px;
+ border: 1px solid #8736bd;
+ border-radius: 20px;
+ background: #1b0b2b;
+ color: white;
+ font-size: 12px;
+ letter-spacing: 1px;
+ cursor: pointer;
+}
+
+/* SITE */
+
 header {
  padding: 22px 18px;
  border-bottom: 1px solid #462078;
@@ -155,10 +287,39 @@ footer {
  font-size: 11px;
  margin: 22px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+ #intro, .particles, .intro-logo,
+ .intro-avatar, .intro-title, .intro-subtitle {
+  animation: none;
+  transition: none;
+ }
+ .intro-avatar, .intro-title, .intro-subtitle {
+  opacity: 1;
+ }
+}
 </style>
 </head>
 
 <body>
+
+<!-- INTRO VOID -->
+
+<div id="intro">
+ <div class="particles"></div>
+
+ <div class="intro-logo">V</div>
+
+ <div class="intro-avatar">
+  <img src="file_000000001e5881f4b0f0dea71c2a3327.png"
+       alt="Personnage VOID">
+ </div>
+
+ <div class="intro-title">VOID</div>
+ <div class="intro-subtitle">BEYOND REALITY</div>
+
+ <button id="skipIntro">PASSER ➜</button>
+</div>
 
 <header>
  <div class="logo">V</div>
@@ -171,15 +332,13 @@ footer {
 <main>
 
  <section class="hero">
-
   <div class="avatar">
    <img src="file_000000001e5881f4b0f0dea71c2a3327.png"
-     alt="Personnage VOID">
+        alt="Personnage VOID">
   </div>
 
   <h2>BEYOND REALITY</h2>
   <p>Une intelligence à tes côtés.</p>
-
  </section>
 
  <section class="chat" id="chat">
@@ -191,7 +350,9 @@ footer {
  </section>
 
  <form id="form">
-  <input id="message" placeholder="Écris ou parle à VOID..." autocomplete="off">
+  <input id="message"
+         placeholder="Écris ou parle à VOID..."
+         autocomplete="off">
   <button type="button" id="mic">🎙️</button>
   <button type="submit">➤</button>
  </form>
@@ -203,6 +364,25 @@ footer {
 <footer>VOID © 2026 — PERSONAL AI</footer>
 
 <script>
+/* INTRO */
+
+const intro = document.getElementById("intro");
+const skipIntro = document.getElementById("skipIntro");
+
+function closeIntro() {
+ if (intro.classList.contains("hide")) return;
+ intro.classList.add("hide");
+}
+
+const introTimer = setTimeout(closeIntro, 4500);
+
+skipIntro.addEventListener("click", () => {
+ clearTimeout(introTimer);
+ closeIntro();
+});
+
+/* CHAT */
+
 const form = document.getElementById("form");
 const input = document.getElementById("message");
 const chat = document.getElementById("chat");
@@ -232,6 +412,8 @@ form.addEventListener("submit", function(e) {
   addMessage(answer, "bot");
  }, 500);
 });
+
+/* MICRO */
 
 const SpeechRecognition =
  window.SpeechRecognition || window.webkitSpeechRecognition;
