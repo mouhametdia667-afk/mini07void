@@ -389,6 +389,21 @@ const chat = document.getElementById("chat");
 const mic = document.getElementById("mic");
 const status = document.getElementById("voiceStatus");
 
+// RECEVOIR UN TEXTE PARTAGÉ SUR VOID
+
+const params = new URLSearchParams(window.location.search);
+
+const sharedText =
+ params.get("text") ||
+ params.get("url") ||
+ params.get("title") ||
+ "";
+
+if (sharedText.trim()) {
+ input.value = sharedText;
+ status.textContent = "Texte reçu ! Tu peux le modifier.";
+}
+
 function addMessage(text, type) {
  const div = document.createElement("div");
  div.className = "message " + type;
